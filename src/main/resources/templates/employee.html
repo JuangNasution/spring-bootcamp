@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Employee</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form th:object="${employee}" th:action="@{/employee/save}" method="POST">
+            Id       : <input type="text" th:field="*{id}" />
+            <br/>
+            Name     : <input type="text" th:field="*{name}" />
+            <br/>
+            Dept     : <select th:field ="*{department.id}">
+                <option th:each="as : ${departments}" th:value="${as.id}" th:text="${as.name}"></option>
+            </select>
+            <br/>
+
+            <input type="submit" value="Save" name="Save" />
+        </form>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Employee Dept</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.department.name}"></td>
+                    <td>
+                        <form style="display: inline" th:action="@{/employee/}+${employee.id}" method = "GET">
+                            <input style="background-color: background" type="submit" value="edit" name="edit"/>
+                        </form>
+                        <form style="display: inline" th:action="@{/employee/delete/}+${employee.id}" method = "GET">
+                            <input style="background-color: indianred;" type="submit" value="delete" name="delete"/>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

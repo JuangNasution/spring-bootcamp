@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Department</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form th:object="${department}" th:action="@{/save}" method="POST">
+            Id       : <input type="text" th:field="*{id}" />
+            <br/>
+            Name     : <input type="text" th:field="*{name}" />
+            <br/>
+            <input style= "background-color: greenyellow" type="submit" value="Save" name="Save" />
+        </form>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Department Id</th>
+                    <th>Department Name</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="department: ${departments}">
+                    <td th:text="${department.id}"></td>
+                    <td th:text="${department.name}"></td>
+                    <td>
+                        <form style="display: inline" th:action="@{/}+${department.id}" method = "GET">
+                            <input style="background-color: background" type="submit" value="edit"/>
+                        </form>
+                        <form style="display: inline" th:action="@{/delete/}+${department.id}" method = "GET">
+                            <input style="background-color: indianred; " type="submit" value="delete" name="delete"/>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>
